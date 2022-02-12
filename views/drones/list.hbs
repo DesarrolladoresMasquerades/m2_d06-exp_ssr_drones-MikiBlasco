@@ -1,5 +1,6 @@
 <h2>Available drones</h2>
 <hr>
+<hr>
 
 {{#each drones}}
 
@@ -11,6 +12,13 @@
 
     <a href="/drones/{{_id}}/edit">Edit</a>
 
+   
+    <form action="/drones/{{_id}}/delete" method="POST">
+    <button type="submit">Delete</button>
+    </form>
+
+
 </div>
+<hr>
 
 {{/each}}

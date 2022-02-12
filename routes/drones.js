@@ -35,7 +35,7 @@ router.get('/drones/:id/edit', (req, res, next) => {
   const id = req.params.id
   Drone.findById(id)
   .then(drone => {
-    console.log(`read this drone from DB: ${drone}`)
+    //console.log(`read this drone from DB: ${drone}`)
     res.render("drones/update-form", drone)
   })
   .catch((error)=> console.log(`DB error reading '/drones'`))
@@ -43,21 +43,25 @@ router.get('/drones/:id/edit', (req, res, next) => {
 
 router.post('/drones/:id/edit', (req, res, next) => {
   // Iteration #4: Update the drone
-  console.log('Edit from body ', req.body);
+ //console.log('Edit from body ', req.body);
   const id = req.params.id;
-
   const name = req.body.name;
   const propellers = req.body.propellers;
   const maxSpeed = req.body.maxSpeed;
+  console.log("-------------------------------/////", name, propellers, maxSpeed)
 
-  Drone.findByIdAndUpdate(id, {name, propellers, maxSpeed})
+  Drone.findByIdAndUpdate( id, {name, propellers, maxSpeed}, {new: true})
   .then(()=> res.redirect('/drones'))
   .catch((error)=> console.log(`Error while updating the Drone: ${error}`))
+  console.log("-------------------------------/////", name, propellers, maxSpeed)
 });
 
 router.post('/drones/:id/delete', (req, res, next) => {
   // Iteration #5: Delete the drone
-  // ... your code here
+  const id = req.params.id;
+  Drone.findByIdAndRemove(id)
+  .then(()=> res.redirect("/drones"))
+  .catch((error)=>console.log(`${error}`))
 });
 
 module.exports = router;
